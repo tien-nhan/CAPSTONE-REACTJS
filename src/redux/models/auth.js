@@ -2,7 +2,7 @@ import { message } from "antd";
 import authProvider from "../../data-access/auth-provider";
 
 export default {
-  state: {}, // initial state
+  state: { auth: JSON.parse(localStorage.getItem("auth") || "{}") },
   reducers: {
     // handle state changes with pure functions
     updateData(state, payload) {
@@ -18,7 +18,10 @@ export default {
           .login(payload)
           .then((s) => {
             message.success("Đăng nhập thành công");
-            dispatch.auth.updateData({ auth: s?.content });
+            dispatch.auth.updateData({ auth: s });
+            localStorage.setItem("access_token", s?.accessToken);
+            localStorage.setItem("auth", JSON.stringify(s));
+
             resolve(s);
           })
           .catch((e) => {

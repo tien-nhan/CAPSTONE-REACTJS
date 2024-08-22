@@ -6,16 +6,12 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const {
     auth: { onRegister },
-    quanLyNguoiDung: { layDanhSachLoaiNguoiDung },
   } = useDispatch();
-  const { dsLoaiNguoiDung } =
-    useSelector((state) => state.quanLyNguoiDung) || {};
+
   const navigate = useNavigate();
   const [state, _setState] = useState({});
   const setState = (data) => _setState((pre) => ({ ...pre, ...data }));
-  useEffect(() => {
-    layDanhSachLoaiNguoiDung();
-  }, []);
+
   const onChange = (key) => (e) => {
     const value = e?.target?.value;
     setState({ [key]: value });
@@ -135,31 +131,19 @@ const Register = () => {
               Số điện thoại
             </label>
           </div>
-          {/* <label
-            for="maNhom"
-            class="block mb-2 text-sm font-medium text-gray-500"
-          >
-            Loại người dùng
-          </label>
-          <select
-            id="maNhom"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none"
-          >
-            {dsLoaiNguoiDung.map((o) => (
-              <option value={o.maLoaiNguoiDung}>{o.tenLoai}</option>
-            ))}
-          </select> */}
+
           <div className="flex justify-around mt-10">
             <button
               type="submit"
               className="text-black border border-gray-800 rounded-2xl px-5 py-2 hover:bg-slate-500 hover:text-white"
-              onClick={onDangKy}
+              onClick={() => navigate("/login")}
             >
               Đăng nhập
             </button>
             <button
               type="button"
               className="text-black border border-gray-800 rounded-2xl px-5 py-2 hover:bg-slate-500 hover:text-white"
+              onClick={onDangKy}
             >
               Đăng ký
             </button>
