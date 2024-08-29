@@ -13,14 +13,18 @@ const client = axios.create({
 // Add a request interceptor
 client.interceptors.request.use(
   function (config) {
+    config.headers = {
+      ...config.headers,
+      TokenCybersoft: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBETiAxMSIsIkhldEhhblN0cmluZyI6IjIyLzAxLzIwMjUiLCJIZXRIYW5UaW1lIjoiMTczNzUwNDAwMDAwMCIsIm5iZiI6MTcwOTc0NDQwMCwiZXhwIjoxNzM3NjUxNjAwfQ.nl0s6U9TVtfCtNNz9yMfG6ZupTn18NciJE96XGDOTmQ`,
+    };
+    const tail = config?.url?.split("/")[config?.url?.split("/")?.length - 1];
     const token = localStorage.getItem("access_token");
-    if (token) {
-      config.headers = {
-        ...config.headers,
-        Authorization: "Bearer " + token,
-        TokenCybersoft:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBETiAxMSIsIkhldEhhblN0cmluZyI6IjIyLzAxLzIwMjUiLCJIZXRIYW5UaW1lIjoiMTczNzUwNDAwMDAwMCIsIm5iZiI6MTcwOTc0NDQwMCwiZXhwIjoxNzM3NjUxNjAwfQ.nl0s6U9TVtfCtNNz9yMfG6ZupTn18NciJE96XGDOTmQ",
-      };
+    if (
+      token &&
+      tail?.toLowerCase() !== "dangnhap" &&
+      tail?.toLowerCase() !== "dangky"
+    ) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     // Do something before request is sent
     return config;
