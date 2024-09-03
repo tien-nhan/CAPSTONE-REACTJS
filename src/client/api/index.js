@@ -1,3 +1,3 @@
 export const AUTH = "/login";
 export const REGISTER = "/register";
-export const GROUPID = "GP01";
+export const GROUPID = "GP02";
