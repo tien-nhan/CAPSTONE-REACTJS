@@ -20,6 +20,20 @@ export default {
 			client
 				.get(`/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${id}`)
 				.then((res) => {
+					if (res?.statusCode === 200) {
+						resolve(res?.content);
+					} else reject(s?.content);
+				})
+				.catch((e) => {
+					reject(e);
+				});
+		});
+	},
+	getSchedules: (id) => {
+		return new Promise((resolve, reject) => {
+			client
+				.get(`/api/QuanLyRap/LayThongTinLichChieuPhim?maPhim=${id}`)
+				.then((res) => {
 					console.log(res);
 					if (res?.statusCode === 200) {
 						resolve(res?.content);
