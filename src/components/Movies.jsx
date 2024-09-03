@@ -4,7 +4,6 @@ import Movie from "./Movie";
 
 function Movies() {
 	const moviesState = useSelector((store) => store.quanLyPhim);
-	console.log(moviesState);
 	const {
 		quanLyPhim: { getMovies, setIsShowingMovies, setComingSoonMovies },
 	} = useDispatch();
