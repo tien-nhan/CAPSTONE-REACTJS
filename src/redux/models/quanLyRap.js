@@ -3,13 +3,16 @@ import quanLyRapProvider from "../../data-access/ql-rap-provider";
 import { GROUPID } from "../../client/api";
 
 export default {
-	state: { cinemas: [] }, // initial state
+	state: { cinemas: [], schedules: {} }, // initial state
 	reducers: {
 		// handle state changes with pure functions
 		updateData(state, payload) {
 			return { ...state, ...payload };
 		},
 		updateCinemas(state, payload) {
+			return { ...state, ...payload };
+		},
+		updateSchedules(state, payload) {
 			return { ...state, ...payload };
 		},
 	},
@@ -34,6 +37,16 @@ export default {
 					console.log(res);
 					dispatch.quanLyRap.updateCinemas({
 						cinemas: res,
+					});
+				});
+			});
+		},
+		getSchedules: (id, state) => {
+			return new Promise(async (resolve, reject) => {
+				quanLyRapProvider.getSchedules(id).then((res) => {
+					console.log(res);
+					dispatch.quanLyRap.updateSchedules({
+						schedules: res,
 					});
 				});
 			});

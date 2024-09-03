@@ -12,6 +12,7 @@ import QuanLyNguoiDung from "../pages/QuanLyNguoiDung";
 import Homepage from "../pages/Homepage";
 import Contact from "../pages/Contact";
 import News from "../pages/News";
+import Details from "../pages/Details";
 
 const AppRoutes = () => {
 	return (
@@ -43,6 +44,15 @@ const AppRoutes = () => {
 					</Suspense>
 				}
 			/>
+			<Route
+				path="details/:id"
+				element={
+					<Suspense fallback={<div>loading...</div>}>
+						<Details />
+					</Suspense>
+				}
+			/>
+
 			<Route
 				path="admin"
 				element={
