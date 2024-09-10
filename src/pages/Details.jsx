@@ -109,7 +109,7 @@ function Details() {
 																	{cumRap.lichChieuPhim?.map((lich, index) => {
 																		return (
 																			<NavLink
-																				to="/"
+																				to={`/booking/${lich.maLichChieu}`}
 																				key={index}
 																				className="text-blue-600"
 																			>
