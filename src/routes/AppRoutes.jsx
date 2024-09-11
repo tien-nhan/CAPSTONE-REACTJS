@@ -13,6 +13,7 @@ import Homepage from "../pages/Homepage";
 import Contact from "../pages/Contact";
 import News from "../pages/News";
 import Details from "../pages/Details";
+import Booking from "../pages/Booking";
 
 const AppRoutes = () => {
 	return (
@@ -49,6 +50,14 @@ const AppRoutes = () => {
 				element={
 					<Suspense fallback={<div>loading...</div>}>
 						<Details />
+					</Suspense>
+				}
+			/>
+			<Route
+				path="booking/:id"
+				element={
+					<Suspense fallback={<div>loading...</div>}>
+						<Booking />
 					</Suspense>
 				}
 			/>
