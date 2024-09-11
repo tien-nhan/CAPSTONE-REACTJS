@@ -10,6 +10,8 @@ import {
 } from "@ant-design/icons";
 import { Fragment, useEffect, useState } from "react";
 import { Tabs } from "antd";
+import Seats from "../components/Seats";
+import BookingResults from "../components/BookingResults";
 
 function Booking() {
 	if (!localStorage.getItem("auth")) {
@@ -18,22 +20,37 @@ function Booking() {
 
 	const { id } = useParams();
 	const {
-		quanLyNguoiDung: { getUserBookingInfo },
-		quanLyDatVe: { getBookingDetails },
+		quanLyNguoiDung: { getUserBookingHistory },
+		quanLyDatVe: { getBookingDetails, sendBookingSeats, deleteBookingSeats },
 	} = useDispatch();
-	const { userInfo } = useSelector((store) => store.quanLyNguoiDung);
+
 	const { auth } = useSelector((store) => store.auth);
-	const { bookingDetails } = useSelector((store) => store.quanLyDatVe);
+	const { bookingDetails, bookingSeats } = useSelector(
+		(store) => store.quanLyDatVe
+	);
 
-	console.log(bookingDetails);
-	console.log(auth);
+	const [seatInfo, setSeatInfo] = useState(null);
+
+	useEffect(
+		function () {
+			getBookingDetails(id);
+		},
+		[id]
+	);
+
 	useEffect(function () {
-		getBookingDetails(id);
+		getUserBookingHistory();
 	}, []);
 
-	useEffect(function () {
-		getUserBookingInfo();
-	}, []);
+	useEffect(
+		function () {
+			console.log(seatInfo);
+			sendBookingSeats(seatInfo);
+			getBookingDetails(id);
+			deleteBookingSeats();
+		},
+		[seatInfo, id]
+	);
 
 	function onChange(key) {
 		console.log(key);
@@ -55,7 +72,7 @@ function Booking() {
 								<div className={` text-center`}>
 									<h3 className="mt-3 text-black">Màn hình</h3>
 								</div>
-								<div></div>
+								<Seats />
 							</div>
 							<div className="mt-5 flex justify-center">
 								<table className="w-2/3 divide-y divide-gray-200">
@@ -112,14 +129,34 @@ function Booking() {
 						</div>
 
 						<div className="col-span-3">
-							<h3 className="text-center text-2xl text-green-600">đồng</h3>
-							<h3 className="text-xl"></h3>
-							<p>Địa điểm:</p>
-							<p>Ngày chiếu:</p>
+							<h3 className="text-center text-2xl text-green-600">
+								{bookingSeats
+									.reduce((total, seat) => {
+										return (total = total + seat.giaVe);
+									}, 0)
+									.toLocaleString()}
+								đồng
+							</h3>
+							<h3 className="text-xl">
+								{bookingDetails?.thongTinPhim?.tenPhim}
+							</h3>
+							<p>Địa điểm: {bookingDetails?.thongTinPhim?.tenPhim}</p>
+							<p>
+								Ngày chiếu{bookingDetails?.thongTinPhim?.ngayChieu} -{" "}
+								{bookingDetails?.thongTinPhim?.gioChieu}{" "}
+								{bookingDetails?.thongTinPhim?.tenRap}:
+							</p>
 							<hr />
 							<div className="my-5 flex">
 								<div className="w-4/5">
 									<span className="mr-1 text-lg text-red-400">Ghế:</span>
+									{bookingSeats.map((bookingSeat, index) => {
+										return (
+											<span key={index} className="mr-2 text-xl text-green-500">
+												{bookingSeat.tenGhe}
+											</span>
+										);
+									})}
 								</div>
 								<div className="col-span-1 text-right">
 									<span className="text-lg text-green-800"></span>
@@ -128,13 +165,25 @@ function Booking() {
 							<hr />
 							<div className="my-5">
 								<i>Email</i> <br />
+								{auth.email}
 							</div>
 							<hr />
 							<div className="my-5">
 								<i>Phone</i> <br />
+								{auth.soDT}
 							</div>
 							<hr />
-							<div className="w-full cursor-pointer bg-green-500 py-3 text-center text-2xl font-bold text-white">
+							<div
+								className="w-full cursor-pointer bg-green-500 py-3 text-center text-2xl font-bold text-white"
+								onClick={() => {
+									let maLichChieu = id;
+									let danhSachVe = bookingSeats;
+									const thongTinDatVe = {};
+									thongTinDatVe.maLichChieu = maLichChieu;
+									thongTinDatVe.danhSachVe = danhSachVe;
+									setSeatInfo(thongTinDatVe);
+								}}
+							>
 								Đặt vé
 							</div>
 						</div>
@@ -158,16 +207,13 @@ function Booking() {
 									!
 								</p>
 							</div>
-							<div className="m-2 flex flex-wrap"></div>
+							<div className="m-2 flex flex-wrap">
+								<BookingResults />
+							</div>
 						</div>
 					</section>
 				</div>
 			),
-		},
-		{
-			key: "3",
-			label: "Tab 3",
-			children: "Content of Tab Pane 3",
 		},
 	];
 

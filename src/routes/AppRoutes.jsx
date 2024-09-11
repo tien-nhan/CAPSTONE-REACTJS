@@ -61,6 +61,7 @@ const AppRoutes = () => {
 					</Suspense>
 				}
 			/>
+
 			<Route
 				path="admin"
 				element={

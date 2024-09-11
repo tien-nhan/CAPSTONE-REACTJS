@@ -1,17 +1,16 @@
 import { message } from "antd";
 import quanlynguoidungProvider from "../../data-access/ql-nguoi-dung-provider";
 import quanlydatveProvider from "../../data-access/ql-dat-ve-provider";
+import quanlydatveProvider from "../../data-access/ql-dat-ve-provider";
 
 export default {
-	state: {
-		userInfo: {},
-	}, // initial state
+	state: { userInfo: {} }, // initial state
 	reducers: {
 		// handle state changes with pure functions
 		updateData(state, payload) {
 			return { ...state, ...payload };
 		},
-		updateUser(state, payload) {
+		addUserInfo(state, payload) {
 			return { ...state, ...payload };
 		},
 	},
@@ -30,13 +29,13 @@ export default {
 					});
 			});
 		},
-		getThongTinTaiKhoan: (payload, state) => {
+		getUserBookingHistory: (payload, state) => {
 			return new Promise(async (resolve, reject) => {
-				quanlynguoidungProvider
-					.getThongTinTaiKhoan()
-					.then((s) => {
-						resolve(s);
-						dispatch.quanLyNguoiDung.updateData({ thongTinTaiKhoan: s });
+				quanlydatveProvider
+					.getBookingHistory()
+					.then((res) => {
+						resolve(res);
+						dispatch.quanLyNguoiDung.addUserInfo({ userInfo: res.content });
 					})
 					.catch((e) => {
 						message.error(e.message);
@@ -44,13 +43,13 @@ export default {
 					});
 			});
 		},
-		getUserBookingInfo: (payload, state) => {
+		getThongTinTaiKhoan: (payload, state) => {
 			return new Promise(async (resolve, reject) => {
-				quanlydatveProvider
-					.getBookingHistory()
-					.then((res) => {
-						resolve(res);
-						dispatch.quanLyNguoiDung.updateUser({ userInfo: res.content });
+				quanlynguoidungProvider
+					.getThongTinTaiKhoan()
+					.then((s) => {
+						resolve(s);
+						dispatch.quanLyNguoiDung.updateData({ thongTinTaiKhoan: s });
 					})
 					.catch((e) => {
 						message.error(e.message);
