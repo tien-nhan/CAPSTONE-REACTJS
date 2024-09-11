@@ -1,7 +1,6 @@
 import { message } from "antd";
 import quanlynguoidungProvider from "../../data-access/ql-nguoi-dung-provider";
 import quanlydatveProvider from "../../data-access/ql-dat-ve-provider";
-import quanlydatveProvider from "../../data-access/ql-dat-ve-provider";
 
 export default {
 	state: { userInfo: {} }, // initial state
