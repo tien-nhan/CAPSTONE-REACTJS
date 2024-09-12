@@ -44,10 +44,11 @@ function Booking() {
 
 	useEffect(
 		function () {
-			console.log(seatInfo);
-			sendBookingSeats(seatInfo);
-			getBookingDetails(id);
-			deleteBookingSeats();
+			if (seatInfo) {
+				sendBookingSeats(seatInfo);
+				getBookingDetails(id);
+				deleteBookingSeats();
+			}
 		},
 		[seatInfo, id]
 	);
