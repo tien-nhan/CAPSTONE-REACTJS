@@ -45,7 +45,7 @@ const PrivateRoute = () => {
             <li>
               <Link
                 to="/admin/quanlynguoidung"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center p-2 text-gray-900 rounded-lg text-white hover:bg-gray-700 group"
               >
                 <UserOutlined className="mx-5 my-2" />
                 Users
@@ -54,7 +54,7 @@ const PrivateRoute = () => {
             <li>
               <button
                 type="button"
-                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group text-white hover:bg-gray-700"
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
                 onClick={() => setState({ moreMenu: !state.moreMenu })}
@@ -70,7 +70,7 @@ const PrivateRoute = () => {
                   <li>
                     <Link
                       to="/admin/films"
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group text-white hover:bg-gray-700"
                     >
                       Films
                     </Link>
@@ -78,7 +78,7 @@ const PrivateRoute = () => {
                   <li>
                     <a
                       href="#"
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group text-white hover:bg-gray-700"
                     >
                       Add new
                     </a>
@@ -89,7 +89,7 @@ const PrivateRoute = () => {
             <li>
               <Link
                 to="/manage-users"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                className="flex items-center p-2 text-gray-900 rounded-lg text-white hover:bg-gray-700 group"
               >
                 <VideoCameraOutlined className="mx-5 my-2" />
                 TV Show
