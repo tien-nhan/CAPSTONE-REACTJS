@@ -1,6 +1,14 @@
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { UserOutlined } from "@ant-design/icons";
 
 function Header() {
+	const { auth } = useSelector((store) => store.auth);
+	console.log(auth.hoTen);
+	const {
+		auth: { deleteAuth },
+	} = useDispatch();
+
 	return (
 		<header className="text-coolGray-800 max-w-full bg-black bg-opacity-40 p-4 text-white">
 			<div className="container mx-auto my-0 flex h-16 justify-between">
@@ -42,14 +50,34 @@ function Header() {
 						</NavLink>
 					</li>
 				</ul>
-				<ul className="flex items-center gap-4">
-					<li>
-						<NavLink to="login">Login</NavLink>
-					</li>
-					<li>
-						<NavLink to="register">Signup</NavLink>
-					</li>
-				</ul>
+				{auth.hoTen ? (
+					<ul className="flex items-center gap-4">
+						<li>
+							<NavLink to="profile">
+								{auth.hoTen} <UserOutlined />
+							</NavLink>
+						</li>
+						<button
+							onClick={() => {
+								localStorage.removeItem("auth");
+								localStorage.removeItem("access_token");
+								deleteAuth();
+							}}
+						>
+							log out
+						</button>
+					</ul>
+				) : (
+					<ul className="flex items-center gap-4">
+						<li>
+							<NavLink to="login">Login</NavLink>
+						</li>
+						<li>
+							<NavLink to="register">Signup</NavLink>
+						</li>
+					</ul>
+				)}
+
 				<button className="p-4 lg:hidden">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
